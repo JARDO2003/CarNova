@@ -1390,7 +1390,7 @@
                 <h3>LUXE AUTO</h3>
                 <p>Côte d'Ivoire, Abidjan</p>
                 <p><a href="tel:0172369840" style="color:rgba(255,255,255,0.7);text-decoration:none;">0172369840</a></p>
-                <p><a href="mailto:zinzindohouemarcio@gmail.com" style="color:rgba(255,255,255,0.7);text-decoration:none;word-break:break-all;">zinzindohouemarcio@gmail.com</a></p>
+                <p><a href="/cdn-cgi/l/email-protection#6c160502160502080304031909010d1e0f05032c0b010d0500420f0301" style="color:rgba(255,255,255,0.7);text-decoration:none;word-break:break-all;"><span class="__cf_email__" data-cfemail="473d2e293d2e2923282f2832222a2635242e2807202a262e2b6924282a">[email&#160;protected]</span></a></p>
                 <div class="social-links">
                     <a href="#">f</a>
                     <a href="#">in</a>
@@ -1435,7 +1435,7 @@
     </div>
 
     <!-- Firebase -->
-    <script type="module">
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
@@ -1477,7 +1477,15 @@
                     setTimeout(() => card.classList.add('visible'), index * 100);
                 });
             } else {
-                loadDemoData();
+                grid.innerHTML = `
+                    <div style="grid-column:1/-1; text-align:center; padding: 60px 20px; color: rgba(255,255,255,0.4);">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="margin:0 auto 20px;display:block;opacity:0.3;">
+                            <path d="M19 17h2c.6 0 1-.4 1-1v-4c0-.6-.4-1-1-1H3c-.6 0-1 .4-1 1v4c0 .6.4 1 1 1h2m16 0v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2m16 0H5"/>
+                        </svg>
+                        <p style="font-family:'Playfair Display',serif; font-size:1.2rem; color:rgba(255,255,255,0.5); margin-bottom:8px;">Aucun véhicule disponible</p>
+                        <p style="font-size:0.85rem;">Les véhicules publiés depuis l'administration apparaîtront ici.</p>
+                    </div>
+                `;
             }
         });
 
@@ -1506,16 +1514,16 @@
                     <div class="vehicle-brand">${vehicle.brand}</div>
                     <h3 class="vehicle-name">${vehicle.name}</h3>
                     <div class="vehicle-details">
-                        <span class="vehicle-detail">
+                        ${vehicle.year ? `<span class="vehicle-detail">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
                             ${vehicle.year}
-                        </span>
-                        <span class="vehicle-detail">
+                        </span>` : ''}
+                        ${vehicle.mileage > 0 ? `<span class="vehicle-detail">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                             ${(vehicle.mileage / 1000).toFixed(0)}k km
-                        </span>
+                        </span>` : ''}
                     </div>
-                    <div class="vehicle-price">${vehicle.price?.toLocaleString('fr-FR')} €</div>
+                    ${vehicle.price ? `<div class="vehicle-price">${vehicle.price.toLocaleString('fr-FR')} €</div>` : ''}
                     <button class="vehicle-btn" onclick="openVehicleDetail('${vehicle.id}')">
                         Voir les détails
                     </button>
@@ -1526,36 +1534,6 @@
                 </div>
             `;
             return card;
-        }
-
-        function loadDemoData() {
-            const demoVehicles = [
-                {
-                    id: 'demo1',
-                    brand: 'Porsche',
-                    name: '911 Carrera S',
-                    year: 2023,
-                    mileage: 15000,
-                    power: 450,
-                    price: 145000,
-                    premium: true,
-                    description: 'Magnifique Porsche 911 Carrera S en parfait état. Entretien complet, carnet à jour. Configuration exceptionnelle.',
-                    images: [
-                        'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800',
-                        'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=800',
-                        'https://images.unsplash.com/photo-1617531653520-4893f7bbf978?auto=format&fit=crop&w=800'
-                    ],
-                    fuel: 'Essence',
-                    transmission: 'Automatique'
-                }
-            ];
-
-            const grid = document.getElementById('vehiclesGrid');
-            demoVehicles.forEach((vehicle, index) => {
-                const card = createVehicleCard(vehicle);
-                grid.appendChild(card);
-                setTimeout(() => card.classList.add('visible'), index * 100);
-            });
         }
 
         // Modal Functions
@@ -1733,13 +1711,3 @@
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.service-card').forEach(card => observer.observe(card));
-
-        // Testimonials auto-play
-        let currentTestimonial = 0;
-        setInterval(() => {
-            currentTestimonial = (currentTestimonial + 1) % 3;
-            window.showTestimonial(currentTestimonial);
-        }, 5000);
-    </script>
-</body>
-</html>
