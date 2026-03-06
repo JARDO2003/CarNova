@@ -357,6 +357,88 @@
             }
         }
 
+        /* Desktop layout fixes */
+        @media (min-width: 1024px) {
+            html { font-size: 16px; }
+
+            header {
+                padding: 16px 6%;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .mobile-menu-btn {
+                display: none;
+            }
+
+            nav {
+                position: static;
+                width: auto;
+                height: auto;
+                background: transparent;
+                border: none;
+                padding: 0;
+                right: auto;
+                flex-direction: row;
+                display: flex;
+            }
+
+            nav ul {
+                flex-direction: row;
+                gap: 30px;
+            }
+
+            nav li {
+                border: none;
+            }
+
+            nav a {
+                padding: 8px 0;
+                font-size: 0.85rem;
+            }
+
+            nav a:hover {
+                background: transparent;
+                padding-left: 0;
+                color: var(--doré);
+            }
+
+            .cta-header {
+                display: inline-block;
+                padding: 10px 24px;
+                background: transparent;
+                border: 1px solid var(--doré);
+                color: var(--doré);
+                font-family: 'Montserrat', sans-serif;
+                font-weight: 600;
+                font-size: 0.8rem;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                cursor: pointer;
+                border-radius: 4px;
+                transition: all 0.3s;
+            }
+
+            .cta-header:hover {
+                background: var(--doré);
+                color: var(--noir-profond);
+            }
+
+            .hero-title { font-size: 3.5rem; }
+            .hero-description { font-size: 1.1rem; max-width: 550px; margin-left: auto; margin-right: auto; }
+
+            .vehicles-section { padding: 80px 6%; }
+            .section-title { font-size: 2rem; }
+
+            .footer-content {
+                grid-template-columns: repeat(4, 1fr);
+                max-width: 1200px;
+                margin: 0 auto 40px;
+            }
+        }
+
         .vehicle-card {
             background: var(--gris-moyen);
             border-radius: 12px;
@@ -1306,8 +1388,9 @@
         <div class="footer-content">
             <div class="footer-column">
                 <h3>LUXE AUTO</h3>
-                <p>123 Avenue des Champs-Élysées<br>75008 Paris</p>
-                <p>+33 1 23 45 67 89</p>
+                <p>Côte d'Ivoire, Abidjan</p>
+                <p><a href="tel:0172369840" style="color:rgba(255,255,255,0.7);text-decoration:none;">0172369840</a></p>
+                <p><a href="mailto:zinzindohouemarcio@gmail.com" style="color:rgba(255,255,255,0.7);text-decoration:none;word-break:break-all;">zinzindohouemarcio@gmail.com</a></p>
                 <div class="social-links">
                     <a href="#">f</a>
                     <a href="#">in</a>
@@ -1490,6 +1573,7 @@
                 document.getElementById('modalTitle').textContent = vehicle.name;
                 document.getElementById('modalSubtitle').textContent = `${vehicle.brand} • ${vehicle.year}`;
                 document.getElementById('modalPrice').textContent = `${vehicle.price?.toLocaleString('fr-FR')} €`;
+                document.getElementById('modalDescription').style.whiteSpace = 'pre-line';
                 document.getElementById('modalDescription').textContent = vehicle.description || 'Aucune description disponible.';
                 
                 const specsHtml = `
@@ -1585,7 +1669,7 @@
         };
 
         function sendWhatsAppMessage(vehicle) {
-            const phone = '0172369840';
+            const phone = '2250172369840';
             const message = `Bonjour, je suis intéressé par ce véhicule :\n\n` +
                            `🚗 *${vehicle.brand} ${vehicle.name}*\n` +
                            `📅 Année : ${vehicle.year}\n` +
