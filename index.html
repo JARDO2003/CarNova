@@ -1523,7 +1523,7 @@
                             ${(vehicle.mileage / 1000).toFixed(0)}k km
                         </span>` : ''}
                     </div>
-                    ${vehicle.price ? `<div class="vehicle-price">${vehicle.price.toLocaleString('fr-FR')} <span style="font-size:0.7em;font-weight:500;">FCFA</span></div>` : `<div class="vehicle-price" style="font-size:0.85rem;color:rgba(201,169,97,0.6);">Prix à négocier</div>`}
+                    ${vehicle.price ? `<div class="vehicle-price">${vehicle.price.toLocaleString('fr-FR')} <span style="font-size:0.7em;font-weight:500;">${vehicle.currency || 'FCFA'}</span></div>` : `<div class="vehicle-price" style="font-size:0.85rem;color:rgba(201,169,97,0.6);">Prix à négocier</div>`}
                     <button class="vehicle-btn" onclick="openVehicleDetail('${vehicle.id}')">
                         Voir les détails
                     </button>
@@ -1551,7 +1551,7 @@
                 document.getElementById('modalTitle').textContent = vehicle.name;
                 document.getElementById('modalSubtitle').textContent = vehicle.brand || 'Luxe Auto';
                 document.getElementById('modalPrice').textContent = vehicle.price 
-                    ? vehicle.price.toLocaleString('fr-FR') + ' FCFA'
+                    ? vehicle.price.toLocaleString('fr-FR') + ' ' + (vehicle.currency || 'FCFA')
                     : 'Prix à négocier';
                 document.getElementById('modalDescription').style.whiteSpace = 'pre-line';
                 document.getElementById('modalDescription').textContent = vehicle.description || 'Aucune description disponible.';
@@ -1651,7 +1651,9 @@
 
         function sendWhatsAppMessage(vehicle) {
             const phone = '2250172369840';
-            const priceText = vehicle.price ? vehicle.price.toLocaleString('fr-FR') + ' FCFA' : 'À négocier';
+            const priceText = vehicle.price 
+                ? vehicle.price.toLocaleString('fr-FR') + ' ' + (vehicle.currency || 'FCFA')
+                : 'À négocier';
             const message = `Bonjour, je suis intéressé par ce véhicule :\n\n` +
                            `🚗 *${vehicle.name}*\n` +
                            `💰 Prix : ${priceText}\n\n` +
