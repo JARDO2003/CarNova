@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 
-Sitemap: https://groupe-express.vercel.app/sitemap.xml
+Sitemap: https://car-nova.vercel.app/sitemap.xml
